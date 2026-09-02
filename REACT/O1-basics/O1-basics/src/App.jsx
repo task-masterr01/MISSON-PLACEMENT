@@ -1,17 +1,22 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
+import { useEffect } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
-    <>
-      <h1 class="text-3xl font-bold underline text-blue-600">
-  Tailwind is working, yaaho !!</h1>
-    </>
+    <div>
+        <h2 className='font-bold '>Fetch users data</h2>
+        {
+          usersData.map((users)=>(
+            <ul className='flex justify-evenly py-4'>
+              <li className=' p-2 py-3' >name:  {users.firstName}</li>
+              <li className='size-4 p-2 py-3' >surname:{users.lastName}</li>
+              <li className='size-4 p-2 py-3' >age:{users.age}</li>
+            </ul>
+          ))
+        }
+    </div>
   )
 }
 
