@@ -3,19 +3,29 @@ import './App.css'
 import { useEffect } from 'react';
 
 function App() {
+  const [usersData, setUsersData] = useState([])
+  useEffect(() => {
+    getUsersData();
+  }, [])
+  
+  async function getUsersData(){
+    const url = "https://dummyjson.com/users";
+     let res = await fetch(url);
+     res = await res.json();
+     setUsersData(res.users);
+  }
+  
   
   return (
     <div>
-        <h2 className='font-bold '>Fetch users data</h2>
-        {
-          usersData.map((users)=>(
-            <ul className='flex justify-evenly py-4'>
-              <li className=' p-2 py-3' >name:  {users.firstName}</li>
-              <li className='size-4 p-2 py-3' >surname:{users.lastName}</li>
-              <li className='size-4 p-2 py-3' >age:{users.age}</li>
-            </ul>
-          ))
-        }
+       <h1>hello users data hear</h1>
+       {
+        usersData.map((users)=>(
+          <ul>
+            <li>{users.firstName}</li>
+          </ul>
+        ))
+       }
     </div>
   )
 }
