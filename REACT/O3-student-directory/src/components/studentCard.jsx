@@ -25,7 +25,7 @@ const StudentCard = (props) => {
                             ))}
                            </ul>
                             <li >
-                              <Link to={`/About/${student.id}`} className='px-2 py-1 bg-[#3462e2] rounded-xl ml-2 '>View Profile</Link>
+                              <Link to={`/student/${student.id}`} className='px-2 py-1 bg-[#3462e2] rounded-xl ml-2 '>View Profile</Link>
                             </li>
                             
                         </div>
