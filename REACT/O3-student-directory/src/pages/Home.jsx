@@ -3,7 +3,7 @@ import Header from '../components/Header'
 import StudentCard from '../components/studentCard'
 import students from '../data/students'
 
-const Home = () => {
+const Home = ({ data }) => {
   return (
     <div>
         <Header />
@@ -12,7 +12,7 @@ const Home = () => {
         <h2 className="text-xl mb-4 text-center">--- Students Data Global View ---</h2>
         
       </div>
-        <StudentCard data={students} />
+        <StudentCard data={data} />
     </div>
   )
 }

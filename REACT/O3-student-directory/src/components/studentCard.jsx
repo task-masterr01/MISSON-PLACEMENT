@@ -16,10 +16,10 @@ const StudentCard = (props) => {
                         <div className="  my-4 px-2  text-xs align-text-top w-full text-wrap"> {student.about}</div>
                         <div className="flex flex-col gap-5 items-start "> 
                            <ul className='h-2/10 w-full flex gap-3 flex-wrap ml-2 mt-2'>
-                            {student.skills.map((skill, index) => (
+                            {student.skills?.split(',').map((skill, index) => (
                               <li key={index}>
-                                <button className='px-2 py-1 bg-[#5a5959] rounded-2xl '>
-                                  <img src={skill.icon} alt={skill.name} className='w-4 h-4' />
+                                <button className='px-2 py-1 bg-[#5a5959] rounded-2xl text-xs px-2'>
+                                  {skill.trim()}
                                 </button>
                               </li>
                             ))}
