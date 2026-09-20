@@ -1,5 +1,4 @@
 import React, { useState , useEffect } from 'react'
-import students from '../data/students'
 import StudentCard from '../components/studentCard'
 const SavedStudents = () => {
   const [savedList, setSavedList] = useState([]);
@@ -8,9 +7,12 @@ const SavedStudents = () => {
     const savedData = localStorage.getItem('savedStudents');
     const savedIds = savedData ? JSON.parse(savedData) : [];
 
-    const filteredStudents = students.filter(student => savedIds.includes(student.id));
-
-    setSavedList(filteredStudents);
+    fetch('http://localhost:5000/api/students')
+    .then(res => res.json())
+    .then(data =>{
+      const filtered = data.filter(s => savedIds.includes(s.id));
+      setSavedList(filtered);
+    });
     }, []);
 
     

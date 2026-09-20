@@ -5,7 +5,6 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Home from './pages/Home';
 // import StudentCard from './components/studentCard';
-import students from './data/students';
 import StudentCard from './components/studentCard';
 import SavedStudents from './pages/savedStudents';
 import StudentDetails from './components/studentDetails';

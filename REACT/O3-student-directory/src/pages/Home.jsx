@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
 import StudentCard from '../components/studentCard'
-import students from '../data/students'
 
 const Home = ({ data }) => {
   return (
