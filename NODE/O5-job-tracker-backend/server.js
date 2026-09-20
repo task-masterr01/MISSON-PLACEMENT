@@ -39,7 +39,7 @@ app.post('/api/applications' ,async(req , res) => {
             'INSERT INTO applications (company, role, status, notes, link) VALUES ($1, $2, $3, $4, $5) RETURNING *',
             [company , role , status , notes , link]
         ) ;
-        res.json(result.row[0]);
+        res.json(result.rows[0]);
     } catch(err){
         res.status(500).json({error: err.message});
     }
