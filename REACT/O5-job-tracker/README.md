@@ -1,16 +1,33 @@
-# React + Vite
+# Job Application Tracker 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack web application built to help developers track their job and internship applications in one place.
 
-Currently, two official plugins are available:
+## 🛠️ Tech Stack
+- **Frontend:** React.js, Tailwind CSS, React Router
+- **Backend:** Node.js, Express.js
+- **Database:** PostgreSQL
+- **Tools:** Vite, pg (node-postgres), dotenv
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
+- **Full CRUD Operations:**
+  - Create new job applications (Company, Role, Status, Notes).
+  - Read/View all applications on a grid dashboard.
+  - Update application status (e.g., Applied ➡️ Interview ➡️ Offer).
+  - Delete rejected or duplicate applications.
+- **RESTful API:** Custom Express backend handling all database queries.
+- **Dynamic UI:** Responsive grid layout using Tailwind CSS with status-based color badging.
 
-## React Compiler
+## 🚀 How to Run Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 1. Database Setup
+Create a PostgreSQL database named `job_tracker` and run this SQL query:
+```sql
+CREATE TABLE applications (
+    id SERIAL PRIMARY KEY,
+    company VARCHAR(100) NOT NULL,
+    role VARCHAR(100) NOT NULL,
+    date_applied DATE DEFAULT CURRENT_DATE,
+    status VARCHAR(20) DEFAULT 'Applied',
+    notes TEXT,
+    link VARCHAR(255)
+);
