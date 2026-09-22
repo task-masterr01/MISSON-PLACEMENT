@@ -31,6 +31,21 @@ app.get('/api/applications' , async (req ,res) =>{
     }
 });
 
+
+// GET — fetch all interviews for a specific application
+app.get('/api/applications/:id/interviews', async (req, res) => {
+    try {
+        const { id } = req.params; // Grabs the ID from the URL
+        const result = await pool.query(
+            'SELECT * FROM interviews WHERE application_id = $1 ORDER BY interview_date ASC',
+            [id]
+        );
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // POST — create a new application
 app.post('/api/applications' ,async(req , res) => {
     try{
@@ -42,6 +57,23 @@ app.post('/api/applications' ,async(req , res) => {
         res.json(result.rows[0]);
     } catch(err){
         res.status(500).json({error: err.message});
+    }
+});
+
+// POST — create a new interview for a specific application
+app.post('/api/applications/:id/interviews', async (req, res) => {
+    try {
+        const application_id = req.params.id;
+        const { round_type, interview_date, feedback } = req.body;
+        
+        const result = await pool.query(
+            'INSERT INTO interviews (application_id, round_type, interview_date, feedback) VALUES ($1, $2, $3, $4) RETURNING *',
+            [application_id, round_type, interview_date, feedback]
+        );
+        
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 
