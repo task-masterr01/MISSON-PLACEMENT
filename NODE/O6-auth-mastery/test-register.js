@@ -1,4 +1,5 @@
-// This file acts exactly like a React frontend sending a request
+// This file acts exactly like
+// a React frontend sending a request
 fetch('http://localhost:5002/register', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

@@ -88,11 +88,12 @@ app.post('/login', async (req, res) => {
 // ==========================================
 // ROUTE 3: PROTECTED ROUTE (Authorization)
 // ==========================================
-// This is called "Middleware". It runs BEFORE the route logic to check the VIP pass.
+// This is called "Middleware".
+// It runs BEFORE the route logic to check the VIP pass.
 const verifyToken = (req, res, next) => {
     // 1. Grab the token from the request headers
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Format is "Bearer <token>"
+    const token = authHeader && authHeader.split(' ')[1];  // Format is "Bearer <token>"
 
     // 2. If there's no token, kick them out
     if (!token) {
