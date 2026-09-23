@@ -3,7 +3,7 @@ fetch('http://localhost:5002/login', {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
         email: "hemant@test.com",
-        password: "mysecretpassword123" // Try changing this to a wrong password later!
+        password: "mysecretpassword123" 
     })
 })
 .then(res => res.json())

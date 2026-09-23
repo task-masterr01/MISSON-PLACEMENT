@@ -23,7 +23,8 @@ async function testAuthFlow() {
 
     console.log("3. Accessing Dashboard with real token...");
     
-    // Hit the dashboard route WITH the real token
+    // Hit the dashboard
+    // route WITH the real token
     const dashRes = await fetch('http://localhost:5002/dashboard', {
         method: 'GET',
         headers: {
