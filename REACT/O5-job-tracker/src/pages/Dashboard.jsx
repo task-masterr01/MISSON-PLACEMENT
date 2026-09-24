@@ -5,30 +5,37 @@ const Dashboard = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. Fetch data on load (GET request)
   useEffect(() => {
-    fetchApplications();
-  }, []);
+    const token = localStorage.getItem('token');
 
-  const fetchApplications = async () => {
-    try {
-      const response = await fetch('http://localhost:5001/api/applications');
-      const data = await response.json();
-      setApplications(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setLoading(false);
-    }
-  };
+    fetch('http://localhost:5001/api/applications', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setApplications(data);
+        setLoading(false); // <--- THIS WAS MISSING
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false); // Turn off loading even if there's an error
+      });
+  }, []);
 
   // 2. Handle Delete (DELETE request)
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this application?")) return;
 
+     const token = localStorage.getItem('token');
+
     try {
       await fetch(`http://localhost:5001/api/applications/${id}`, {
         method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}` // Attach it here too
+        }
       });
       // Filter it out of the UI without needing to refresh the page
       setApplications(applications.filter(app => app.id !== id));

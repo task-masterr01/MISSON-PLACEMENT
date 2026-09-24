@@ -70,11 +70,14 @@ const EditApplication = () => {
     e.preventDefault();
     setSaving(true);
 
+    const token = localStorage.getItem('token');
+
     try {
       const response = await fetch(`http://localhost:5001/api/applications/${id}`, {
         method: 'PUT', // <-- PUT means Update
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(formData)
       });
@@ -105,7 +108,9 @@ const EditApplication = () => {
     try {
       const response = await fetch(`http://localhost:5001/api/applications/${id}/interviews`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+         },
         body: JSON.stringify(newInterview)
       });
 

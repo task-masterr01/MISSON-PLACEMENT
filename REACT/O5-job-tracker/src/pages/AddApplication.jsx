@@ -23,26 +23,34 @@ const AddApplication = () => {
   };
 
   // 2. Handle Form Submit (POST request)
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // Stop page reload!
+    const handleSubmit = async (e) => {
+    e.preventDefault();
     setLoading(true);
+
+    const token = localStorage.getItem('token');
+    
+    // Let's prove if the token actually exists when you click the button
+    console.log("Token being sent:", token); 
 
     try {
       const response = await fetch('http://localhost:5001/api/applications', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // We are sending JSON
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(formData) // Convert state object to JSON string
+        body: JSON.stringify(formData)
       });
 
       if (response.ok) {
-        navigate('/'); // Redirect back to dashboard on success
+        navigate('/'); 
       } else {
-        alert("Failed to add application");
+        const errorData = await response.json();
+        console.error("Backend rejection reason:", errorData);
+        alert(`Failed: ${errorData.error}`);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Network Error:', error);
     } finally {
       setLoading(false);
     }
