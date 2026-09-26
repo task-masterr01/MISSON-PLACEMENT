@@ -26,18 +26,25 @@ const EditApplication = () => {
 
   // 1. Fetch the existing application data on load
   useEffect(() => {
+    const token = localStorage.getItem('token');
     // We fetch ALL applications and find the right one (simple way)
     // In a massive app, you'd make a GET /api/applications/:id route on the backend instead.
-    fetch('http://localhost:5001/api/applications')
+    fetch('http://localhost:5001/api/applications', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then(res => res.json())
       .then(data => {
-        // Use Number(id) because URL params are always strings, but DB IDs are numbers
-        const app = data.find(item => item.id === Number(id)); 
-        if (app) {
-          setFormData({
-            status: app.status || 'Applied',
-            notes: app.notes || ''
-          });
+        if (Array.isArray(data)) {
+            // Use Number(id) because URL params are always strings, but DB IDs are numbers
+            const app = data.find(item => item.id === Number(id)); 
+            if (app) {
+              setFormData({
+                status: app.status || 'Applied',
+                notes: app.notes || ''
+              });
+            }
         }
         setLoading(false);
       })
@@ -46,7 +53,11 @@ const EditApplication = () => {
         setLoading(false);
       });
 
-      fetch(`http://localhost:5001/api/applications/${id}/interviews`)
+      fetch(`http://localhost:5001/api/applications/${id}/interviews`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
       .then(res => res.json())
       .then(data => {
         setInterviews(data);
@@ -104,6 +115,7 @@ const EditApplication = () => {
   const handleAddInterview = async (e) => {
     e.preventDefault();
     setAddingInterview(true);
+    const token = localStorage.getItem('token');
 
     try {
       const response = await fetch(`http://localhost:5001/api/applications/${id}/interviews`, {
